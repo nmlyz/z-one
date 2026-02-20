@@ -1,46 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出品 - Z-ONE</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <form id="sell-form" class="sell-container">
+        <h2>出品する</h2>
+        <select id="sell-type">
+            <option value="normal">通常出品</option>
+            <option value="bulk">バラ売り専用</option>
+        </select>
 
-<div class="header">出品</div>
-<div class="container">
+        <input type="text" id="item-name" placeholder="商品名" required>
 
-<label>
-  <input type="checkbox" id="bulk"> バラ売りにする
-</label>
+        <div id="normal-fields">
+            <input type="number" id="price" placeholder="価格 (¥)">
+            <input type="number" id="quantity" placeholder="個数">
+        </div>
 
-<div id="normalArea">
-  <input id="name" placeholder="商品名">
-  <input id="price" placeholder="価格">
-  <input id="quantity" placeholder="数量">
-</div>
+        <div id="bulk-fields" style="display:none;">
+            <input type="number" id="unit-price" placeholder="単価 (1個あたり)">
+            <input type="number" id="stock" placeholder="在庫数">
+        </div>
 
-<div id="bulkArea" style="display:none;">
-  <input id="bulkName" placeholder="商品名">
-  <input id="unitPrice" placeholder="単価">
-  <input id="stock" placeholder="在庫数">
-</div>
-
-<button onclick="postItem()">出品する</button>
-
-</div>
-
-<script>
-bulk.addEventListener("change", () => {
-  if (bulk.checked) {
-    normalArea.style.display = "none";
-    bulkArea.style.display = "block";
-  } else {
-    normalArea.style.display = "block";
-    bulkArea.style.display = "none";
-  }
-});
-</script>
-
-<script type="module" src="js/sell.js"></script>
+        <button type="submit">出品を完了する</button>
+    </form>
+    <script type="module" src="js/sell.js"></script>
 </body>
 </html>

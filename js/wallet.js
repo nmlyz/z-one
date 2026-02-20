@@ -1,7 +1,13 @@
-import { db, auth } from "./firebase.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { db, auth } from './firebase.js';
+import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-auth.onAuthStateChanged(async user => {
-  const snap = await getDoc(doc(db, "users", user.uid));
-  document.getElementById("balance").innerText = snap.data().balance;
+auth.onAuthStateChanged(user => {
+    if (user) {
+        // リアルタイムで残高を監視
+        onSnapshot(doc(db, "users", user.uid), (doc) => {
+            document.getElementById('display-balance').innerText = `¥ ${doc.data().balance.toLocaleString()}`;
+        });
+    } else {
+        location.href = 'login.html';
+    }
 });

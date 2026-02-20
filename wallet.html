@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイページ/残高 - Z-ONE</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-<div class="header">残高</div>
-<div class="container">
-<div class="card" id="balance"></div>
-</div>
-
-<div class="bottom-nav">
-<a href="index.html">ホーム</a>
-<a href="wallet.html">残高</a>
-</div>
-
-<script type="module" src="js/wallet.js"></script>
+    <div class="auth-container">
+        <h2>マイページ</h2>
+        <div class="balance-card">
+            <p>現在の残高</p>
+            <h1 id="display-balance">¥ ---</h1>
+        </div>
+        <div class="info-box">
+            <h3>チャージ方法</h3>
+            <p>1. 管理人のX(Twitter)へDM</p>
+            <p>2. PayPayで送金</p>
+            <p>3. 管理人が確認後、残高が反映されます</p>
+            <a href="https://twitter.com/YOUR_X_ID" target="_blank">管理人のXを開く</a>
+        </div>
+        <button onclick="location.href='index.html'">トップへ戻る</button>
+    </div>
+    <script type="module" src="js/wallet.js"></script>
 </body>
 </html>

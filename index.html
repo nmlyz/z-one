@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-ONE Market</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <header>
+        <div class="header-top">
+            <h1>Z-ONE</h1>
+            <div id="user-info">
+                <a href="login.html" id="login-link">ログイン / 登録</a>
+                <span id="user-balance" style="display:none;"></span>
+            </div>
+        </div>
+    </header>
 
-<div class="header">出品一覧</div>
-<div class="container" id="items"></div>
+    <main id="item-grid" class="item-grid"></main>
 
-<a href="sell.html" class="fab">＋</a>
+    <a href="sell.html" class="fab">＋<br>出品</a>
 
-<div class="bottom-nav">
-<a href="index.html">ホーム</a>
-<a href="wallet.html">残高</a>
-</div>
-
-<script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

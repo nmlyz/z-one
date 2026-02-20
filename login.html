@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン - Z-ONE</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="auth-container">
+        <div id="step-start" class="step">
+            <h2>ようこそ</h2>
+            <button id="btn-to-phone">電話番号でログイン/登録</button>
+        </div>
 
-<div class="header">ログイン / 新規登録</div>
-<div class="container">
+        <div id="step-phone" class="step" style="display:none;">
+            <input type="tel" id="phone-number" placeholder="+819012345678">
+            <div id="recaptcha-container"></div>
+            <button id="btn-send-code">SMSを送信</button>
+        </div>
 
-<div id="selectButtons">
-  <button onclick="startRegister()">新規アカウント作成</button>
-  <button onclick="startLogin()">ログイン</button>
-</div>
+        <div id="step-code" class="step" style="display:none;">
+            <input type="text" id="verification-code" placeholder="6桁のコード">
+            <button id="btn-verify-code">認証する</button>
+        </div>
 
-<div id="authArea"></div>
-
-</div>
-
-<script type="module" src="js/auth.js"></script>
+        <div id="step-name" class="step" style="display:none;">
+            <input type="text" id="user-name" placeholder="ユーザー名を入力">
+            <button id="btn-save-profile">登録完了</button>
+        </div>
+    </div>
+    <script type="module" src="js/auth.js"></script>
 </body>
 </html>

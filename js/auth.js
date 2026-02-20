@@ -1,81 +1,47 @@
-import { auth, db } from "./firebase.js";
-import {
-  RecaptchaVerifier,
-  signInWithPhoneNumber
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-  doc,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth, db } from './firebase.js';
+import { RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 let confirmationResult;
-let mode = "";
 
-function hideSelectButtons() {
-  document.getElementById("selectButtons").style.display = "none";
-}
-
-function renderPhoneInput() {
-  authArea.innerHTML = `
-    <input id="phone" placeholder="+81から入力">
-    <div id="recaptcha-container"></div>
-    <button onclick="sendCode()">認証コードを送信</button>
-  `;
-  window.recaptchaVerifier = new RecaptchaVerifier(
-    auth,
-    'recaptcha-container',
-    { size: 'normal' }
-  );
-}
-
-window.startRegister = () => {
-  mode = "register";
-  hideSelectButtons();
-  renderPhoneInput();
+// ステップ切り替え関数
+const showStep = (id) => {
+    document.querySelectorAll('.step').forEach(el => el.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
 };
 
-window.startLogin = () => {
-  mode = "login";
-  hideSelectButtons();
-  renderPhoneInput();
+document.getElementById('btn-to-phone').onclick = () => showStep('step-phone');
+
+// Recaptcha初期化
+window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
+
+document.getElementById('btn-send-code').onclick = async () => {
+    const phoneNumber = document.getElementById('phone-number').value;
+    confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
+    showStep('step-code');
 };
 
-window.sendCode = async () => {
-  confirmationResult = await signInWithPhoneNumber(
-    auth,
-    phone.value,
-    window.recaptchaVerifier
-  );
+document.getElementById('btn-verify-code').onclick = async () => {
+    const code = document.getElementById('verification-code').value;
+    const result = await confirmationResult.confirm(code);
+    const user = result.user;
 
-  authArea.innerHTML = `
-    <input id="code" placeholder="認証コード">
-    <button onclick="verifyCode()">確認</button>
-  `;
+    // Firestoreにユーザーがいるか確認
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (userDoc.exists()) {
+        location.href = 'index.html';
+    } else {
+        showStep('step-name');
+    }
 };
 
-window.verifyCode = async () => {
-  await confirmationResult.confirm(code.value);
-
-  if (mode === "login") {
-    location.href = "index.html";
-  }
-
-  if (mode === "register") {
-    authArea.innerHTML = `
-      <input id="username" placeholder="ユーザー名を決める">
-      <button onclick="finishRegister()">登録する</button>
-    `;
-  }
-};
-
-window.finishRegister = async () => {
-  const user = auth.currentUser;
-
-  await setDoc(doc(db, "users", user.uid), {
-    name: username.value,
-    balance: 0,
-    rating: 5
-  });
-
-  location.href = "index.html";
+document.getElementById('btn-save-profile').onclick = async () => {
+    const name = document.getElementById('user-name').value;
+    const user = auth.currentUser;
+    await setDoc(doc(db, "users", user.uid), {
+        name: name,
+        balance: 0,
+        uid: user.uid
+    });
+    location.href = 'index.html';
 };
