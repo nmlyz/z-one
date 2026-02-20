@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="header">出品</div>
+<div class="container">
+
+<label>
+  <input type="checkbox" id="bulk"> バラ売りにする
+</label>
+
+<div id="normalArea">
+  <input id="name" placeholder="商品名">
+  <input id="price" placeholder="価格">
+  <input id="quantity" placeholder="数量">
+</div>
+
+<div id="bulkArea" style="display:none;">
+  <input id="bulkName" placeholder="商品名">
+  <input id="unitPrice" placeholder="単価">
+  <input id="stock" placeholder="在庫数">
+</div>
+
+<button onclick="postItem()">出品する</button>
+
+</div>
+
+<script>
+bulk.addEventListener("change", () => {
+  if (bulk.checked) {
+    normalArea.style.display = "none";
+    bulkArea.style.display = "block";
+  } else {
+    normalArea.style.display = "block";
+    bulkArea.style.display = "none";
+  }
+});
+</script>
+
+<script type="module" src="js/sell.js"></script>
+</body>
+</html>
