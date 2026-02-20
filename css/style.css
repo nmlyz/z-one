@@ -1,9 +1,132 @@
-body { font-family: sans-serif; background: #f5f5f5; margin: 0; padding-bottom: 80px; }
-header { background: #fff; padding: 10px 20px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
-.item-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-.item-card { background: #fff; border-radius: 8px; overflow: hidden; position: relative; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.price { color: #e02020; font-weight: bold; font-size: 1.2rem; }
-.fab { position: fixed; bottom: 20px; right: 20px; width: 70px; height: 70px; background: #ff0211; color: white; border-radius: 50%; text-decoration: none; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.step { max-width: 400px; margin: 50px auto; padding: 20px; background: #fff; border-radius: 8px; }
-input, select, button { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-button { background: #ff0211; color: white; border: none; font-weight: bold; cursor: pointer; }
+:root {
+  --mercari-red: #ff0211;
+  --bg-gray: #f5f5f5;
+  --text-main: #333;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-gray);
+  color: var(--text-main);
+}
+
+/* ヘッダーをモダンに */
+header {
+  background: #fff;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+header h1 {
+  font-size: 20px;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+#login-link {
+  color: var(--mercari-red);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 商品カードをメルカリ風に */
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 8px;
+}
+
+.item-card {
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.item-info {
+  padding: 8px;
+}
+
+.item-name {
+  font-size: 13px;
+  height: 36px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.item-price {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+/* 認証フォームをカード型に */
+.auth-container {
+  background: #fff;
+  margin: 20px;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+input {
+  background: #f0f0f0;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+button {
+  background: var(--mercari-red);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 25px;
+  /* 丸みを持たせる */
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+button:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* 出品ボタンをより立体的に */
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 16px;
+  width: 64px;
+  height: 64px;
+  background: var(--mercari-red);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(255, 2, 17, 0.4);
+  border: 3px solid #fff;
+}
